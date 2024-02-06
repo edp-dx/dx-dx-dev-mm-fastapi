@@ -6,12 +6,33 @@ on:
     types: [created]
 
 jobs:
-  auto-approve:
+  auto-approve-pr:
     runs-on: ubuntu-latest
-    if: (github.event_name == 'pull_request_target' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != '' && contains(github.event.comment.body, '/recheck')))
+    if: github.event_name == 'pull_request_target'
     permissions:
       pull-requests: write
     steps:
       - uses: hmarr/auto-approve-action@v4
         with:
           github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
+          
+  auto-approve-comment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issue_comment' && github.event.issue.pull_request != '' && contains(github.event.comment.body, '/approve')
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Ensure jq is installed
+        run: |
+          if ! command -v jq &> /dev/null
+          then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+      - name: Get PR number
+        id: pr
+        run: echo "::set-output name=number::$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")"
+        shell: bash
+      - uses: hmarr/auto-approve-action@v4
+        with:
+          github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
+          pull-request-number: ${{ steps.pr.outputs.number }}
