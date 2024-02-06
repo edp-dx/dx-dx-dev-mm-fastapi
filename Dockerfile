@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 
+
 # Create a non-root user to run the application
 RUN useradd --create-home appuser
 USER appuser
