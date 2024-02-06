@@ -10,5 +10,4 @@ jobs:
     steps:
       - uses: hmarr/auto-approve-action@v4
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-      
+          github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
