@@ -19,5 +19,7 @@ USER appuser
 # Expose the default FastAPI port
 EXPOSE 8080
 
+
+
 # Start the application
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
