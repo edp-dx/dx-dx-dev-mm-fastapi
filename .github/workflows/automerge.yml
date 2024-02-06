@@ -25,6 +25,8 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge"
+          MERGE_RETRIES: "60"
+          MERGE_RETRY_SLEEP: "10000"
           
   auto-approve-comment:
     runs-on: ubuntu-latest
@@ -54,3 +56,5 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge"
+          MERGE_RETRIES: "60"
+          MERGE_RETRY_SLEEP: "10000"
