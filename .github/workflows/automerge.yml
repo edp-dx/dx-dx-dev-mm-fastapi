@@ -27,6 +27,7 @@ jobs:
           MERGE_LABELS: "automerge"
           MERGE_RETRIES: "60"
           MERGE_RETRY_SLEEP: "10000"
+          MERGE_METHOD: "squash"
           
   auto-approve-comment:
     runs-on: ubuntu-latest
@@ -58,3 +59,4 @@ jobs:
           MERGE_LABELS: "automerge"
           MERGE_RETRIES: "60"
           MERGE_RETRY_SLEEP: "10000"
+          MERGE_METHOD: "squash"
