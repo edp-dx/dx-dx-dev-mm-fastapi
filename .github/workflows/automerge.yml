@@ -29,10 +29,8 @@ jobs:
             sudo apt-get update && sudo apt-get install -y jq
           fi
       - name: Get PR number
-        id: pr
-        run: echo "::set-output name=number::$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")"
-        shell: bash
+        run: echo "PR_NUMBER=$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")" >> $GITHUB_ENV
       - uses: hmarr/auto-approve-action@v4
         with:
           github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
-          pull-request-number: ${{ steps.pr.outputs.number }}
+          pull-request-number: "${{ env.PR_NUMBER }}"
