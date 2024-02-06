@@ -15,7 +15,22 @@ jobs:
       - uses: hmarr/auto-approve-action@v4
         with:
           github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
-
+      - name: Add label
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.APPROVE_PR_GITHUB_TOKEN}}
+          script: |
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['automerge']
+            })
+      - uses: pascalgn/automerge-action@v0.14.3
+        env:
+          GITHUB_TOKEN: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
+          MERGE_LABELS: "automerge"
+          
   auto-approve-comment:
     runs-on: ubuntu-latest
     if: github.event_name == 'issue_comment' && github.event.issue.pull_request != '' && contains(github.event.comment.body, '/recheck')
@@ -34,3 +49,18 @@ jobs:
         with:
           github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
           pull-request-number: "${{ env.PR_NUMBER }}"
+      - name: Add label
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.APPROVE_PR_GITHUB_TOKEN}}
+          script: |
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['automerge']
+            })
+      - uses: pascalgn/automerge-action@v0.14.3
+        env:
+          GITHUB_TOKEN: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
+          MERGE_LABELS: "automerge"
