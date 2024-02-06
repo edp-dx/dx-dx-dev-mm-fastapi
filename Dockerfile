@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
-# Create a non-root user to run the application
+# Create a non-root user to run the applicationffffdwfwefwf
 RUN useradd --create-home appuser
 USER appuser
 
