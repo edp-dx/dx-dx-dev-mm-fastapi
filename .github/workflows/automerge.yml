@@ -16,17 +16,10 @@ jobs:
         with:
           github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
       - name: Add label
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{secrets.APPROVE_PR_GITHUB_TOKEN}}
-          script: |
-            github.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['automerge']
-            })
-      - uses: pascalgn/automerge-action@v0.14.3
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label automerge
+        env:
+          GH_TOKEN: ${{ secrets.APPROVE_PR_GITHUB_TOKEN }}
+      - uses: pascalgn/automerge-action@v0.16.2
         env:
           GITHUB_TOKEN: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge"
@@ -50,17 +43,10 @@ jobs:
           github-token: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
           pull-request-number: "${{ env.PR_NUMBER }}"
       - name: Add label
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{secrets.APPROVE_PR_GITHUB_TOKEN}}
-          script: |
-            github.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['automerge']
-            })
-      - uses: pascalgn/automerge-action@v0.14.3
+        run: gh pr edit ${{ env.PR_NUMBER }} --add-label automerge
+        env:
+          GH_TOKEN: ${{ secrets.APPROVE_PR_GITHUB_TOKEN }}
+      - uses: pascalgn/automerge-action@v0.16.2
         env:
           GITHUB_TOKEN: "${{ secrets.APPROVE_PR_GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge"
