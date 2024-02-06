@@ -1,0 +1,1 @@
+1. Application dx-dev-mm-fastapi has been successfully deployed!!

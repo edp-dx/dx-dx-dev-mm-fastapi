@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "dx-dev-mm-fastapi.fullname" . }}-test-connection"
+  labels:
+    {{- include "dx-dev-mm-fastapi.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "dx-dev-mm-fastapi.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
