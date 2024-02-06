@@ -2,7 +2,7 @@ FROM public.ecr.aws/docker/library/python:3.8-slim
 
 WORKDIR /app
 
-# Install required packages
+# Install required packagesff
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
